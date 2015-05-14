@@ -7,4 +7,6 @@
 	<string name="login_password">Password</string>
 	<string name="login_submit">Submit</string>
 
+	<string name="title_activity_internal">Internal_Activity</string>
+
 </resources>
