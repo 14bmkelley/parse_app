@@ -3,9 +3,11 @@ package com.brandonmkelley.parse_app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -14,7 +16,8 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
 
-	private Button submit = (Button) findViewById(R.id.login_submit);
+	private Button submit;
+	private final String app_name = "Parse_App";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		//create listener for submit button
+		submit = (Button) findViewById(R.id.login_submit);
 		setListeners();
 
 		//set up Parse
@@ -53,33 +57,32 @@ public class LoginActivity extends Activity {
 
 						if (e != null) {
 
-							e.printStackTrace();
+							//incorrect username or password handled
+							CharSequence message = "Sorry, that username/password combination was incorrect.";
+							int length = Toast.LENGTH_SHORT;
+							Toast.makeText(getApplicationContext(), message, length).show();
+							Log.w(app_name, "Incorrect username/password entered.");
 
 						} else if (parseUser == null) {
 
-							//wrong credentials
+							//not sure
 
 						} else {
 
-							//success!
+							//save strings to bundle for next activity
+							Bundle b = new Bundle();
+							Log.w(app_name, "User data: " + parseUser.getUsername());
+
+							//start new activity with bundle
+							Intent intent = new Intent(getBaseContext(), InternalActivity.class);
+							intent.putExtras(b);
+							startActivity(intent);
 
 						}
 
 					}
 
 				});
-
-				/*
-				//save strings to bundle for next activity
-				Bundle b = new Bundle();
-				b.putString("username", username);
-				b.putString("password", password);
-
-				//start new activity with bundle
-				Intent intent = new Intent(getBaseContext(), InternalActivity.class);
-				intent.putExtras(b);
-				startActivity(intent);
-				*/
 
 			}
 
