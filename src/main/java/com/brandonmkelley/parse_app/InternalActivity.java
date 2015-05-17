@@ -11,4 +11,12 @@ public class InternalActivity extends Activity {
 		setContentView(R.layout.activity_internal);
 	}
 
+	@Override
+	public void onBackPressed() {
+
+		//TODO: change so that session times out
+		super.onBackPressed();
+
+	}
+
 }
