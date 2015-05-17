@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
 
 		//create listener for submit button
 		submit = (Button) findViewById(R.id.login_submit);
-		setListeners();
+		setSubmitListener();
 
 		//set up Parse
 		Parse.enableLocalDatastore(this);
@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
 
 	}
 
-	private void setListeners() {
+	private void setSubmitListener() {
 
 		submit.setOnClickListener(new View.OnClickListener() {
 
@@ -47,27 +47,15 @@ public class LoginActivity extends Activity {
 				EditText password_view = (EditText) findViewById(R.id.login_password);
 
 				//save content as strings
-				String username = username_view.getText().toString();
-				String password = password_view.getText().toString();
+				String username = username_view.getText().toString().trim();
+				String password = password_view.getText().toString().trim();
 
 				ParseUser.logInInBackground(username, password, new LogInCallback() {
 
 					@Override
 					public void done(ParseUser parseUser, ParseException e) {
 
-						if (e != null) {
-
-							//incorrect username or password handled
-							CharSequence message = "Sorry, that username/password combination was incorrect.";
-							int length = Toast.LENGTH_SHORT;
-							Toast.makeText(getApplicationContext(), message, length).show();
-							Log.w(app_name, "Incorrect username/password entered.");
-
-						} else if (parseUser == null) {
-
-							//not sure
-
-						} else {
+						if (parseUser != null) {
 
 							//save strings to bundle for next activity
 							Bundle b = new Bundle();
@@ -77,6 +65,15 @@ public class LoginActivity extends Activity {
 							Intent intent = new Intent(getBaseContext(), InternalActivity.class);
 							intent.putExtras(b);
 							startActivity(intent);
+
+						} else {
+
+							//incorrect username or password handled
+							CharSequence message = "Sorry, that username/password combination was incorrect.";
+							int length = Toast.LENGTH_SHORT;
+							Toast.makeText(getApplicationContext(), message, length).show();
+							Log.w(app_name, "Incorrect username/password entered.");
+							e.printStackTrace();
 
 						}
 
