@@ -72,15 +72,15 @@ public class LoginActivity extends Activity {
 				blinkMessage.startAnimation(blink);
 
 				//get input fields
-				EditText username_view = (EditText) findViewById(R.id.login_username);
-				EditText password_view = (EditText) findViewById(R.id.login_password);
+				final EditText username_view = (EditText) findViewById(R.id.login_username);
+				final EditText password_view = (EditText) findViewById(R.id.login_password);
 
 				InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				manager.hideSoftInputFromWindow(password_view.getWindowToken(), 0);
 
 				//save content as strings
-				String username = username_view.getText().toString().trim();
-				String password = password_view.getText().toString().trim();
+				final String username = username_view.getText().toString().trim();
+				final String password = password_view.getText().toString().trim();
 
 				ParseUser.logInInBackground(username, password, new LogInCallback() {
 
@@ -91,28 +91,28 @@ public class LoginActivity extends Activity {
 
 							//save strings to bundle for next activity
 							Bundle b = new Bundle();
-							b.putString("firstname", parseUser.getString("firstname"));
-							b.putString("lastname", parseUser.getString("lastname"));
-							b.putString("username", parseUser.getUsername());
-							b.putString("email", parseUser.getEmail());
-
-							Log.d("app", parseUser.getUsername());
+							b.putString("firstName", parseUser.getString("firstName"));
+							b.putString("lastName", parseUser.getString("lastName"));
+							b.putString("age", parseUser.getString("age"));
+							b.putString("city", parseUser.getString("city"));
 
 							//start new activity with bundle
 							Intent intent = new Intent(getBaseContext(), InternalActivity.class);
 							intent.putExtras(b);
 
 							startActivity(intent);
-							blinkMessage.clearAnimation();
-							blinkMessage.setText("");
-							clicked = false;
+							finish();
 
 						} else {
 
 							//incorrect username or password handled
-							CharSequence message = "Sorry, that username/password combination was incorrect.";
+							final CharSequence message = "Sorry, that username/password combination was incorrect.";
 							int length = Toast.LENGTH_SHORT;
 							Toast.makeText(getApplicationContext(), message, length).show();
+
+							blinkMessage.clearAnimation();
+							blinkMessage.setText("");
+							clicked = false;
 
 						}
 
