@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -63,10 +64,12 @@ public class LoginActivity extends Activity {
 					return;
 				}
 
+				//disable clicking
+				clicked = true;
+
+				//start animation
 				blinkMessage.setText("Logging you in, please wait.");
 				blinkMessage.startAnimation(blink);
-
-				clicked = true;
 
 				//get input fields
 				EditText username_view = (EditText) findViewById(R.id.login_username);
@@ -88,6 +91,12 @@ public class LoginActivity extends Activity {
 
 							//save strings to bundle for next activity
 							Bundle b = new Bundle();
+							b.putString("firstname", parseUser.getString("firstname"));
+							b.putString("lastname", parseUser.getString("lastname"));
+							b.putString("username", parseUser.getUsername());
+							b.putString("email", parseUser.getEmail());
+
+							Log.d("app", parseUser.getUsername());
 
 							//start new activity with bundle
 							Intent intent = new Intent(getBaseContext(), InternalActivity.class);
