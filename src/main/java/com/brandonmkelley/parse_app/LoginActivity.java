@@ -91,10 +91,9 @@ public class LoginActivity extends Activity {
 
 							//save strings to bundle for next activity
 							Bundle b = new Bundle();
-							b.putString("firstName", parseUser.getString("firstName"));
-							b.putString("lastName", parseUser.getString("lastName"));
-							b.putString("age", parseUser.getString("age"));
-							b.putString("city", parseUser.getString("city"));
+							b.putString("username", parseUser.getString("username"));
+							b.putString("city", parseUser.getString("City"));
+							b.putInt("age", parseUser.getInt("Age"));
 
 							//start new activity with bundle
 							Intent intent = new Intent(getBaseContext(), InternalActivity.class);

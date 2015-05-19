@@ -8,5 +8,6 @@
 	<string name="login_submit">Submit</string>
 
 	<string name="title_activity_internal">Internal_Activity</string>
+	<string name="internal_title">Your Info:</string>
 
 </resources>
