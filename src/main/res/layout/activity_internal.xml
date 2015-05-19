@@ -33,9 +33,23 @@
 		android:gravity="center_horizontal"/>
 
 	<Space
-		android:id="@+id/internal_space_bottom"
+		android:id="@+id/internal_space_logout"
 		android:layout_below="@id/internal_list"
 		android:layout_width="wrap_content"
-		android:layout_height="200dp"/>
+		android:layout_height="20dp"/>
+
+	<Button
+		android:id="@+id/internal_logout"
+		android:layout_below="@id/internal_space_logout"
+		android:layout_width="100dp"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="@string/internal_logout"/>
+
+	<Space
+		android:id="@+id/internal_space_bottom"
+		android:layout_below="@id/internal_logout"
+		android:layout_width="wrap_content"
+		android:layout_height="150dp"/>
 
 </RelativeLayout>

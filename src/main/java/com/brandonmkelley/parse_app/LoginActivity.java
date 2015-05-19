@@ -41,8 +41,8 @@ public class LoginActivity extends Activity {
 
 		//set up blink animation
 		blink = new AlphaAnimation(0.0f, 1.0f);
-		blink.setDuration(500);
-		blink.setStartOffset(0);
+		blink.setDuration(800);
+		blink.setStartOffset(400);
 		blink.setRepeatMode(Animation.REVERSE);
 		blink.setRepeatCount(Animation.INFINITE);
 		blinkMessage = (TextView) findViewById(R.id.login_blink);
@@ -89,6 +89,11 @@ public class LoginActivity extends Activity {
 
 						if (parseUser != null) {
 
+							//Log results
+							Log.w("user_login", "Username: " + parseUser.getString("username"));
+							Log.w("user_login", "City: " + parseUser.getString("City"));
+							Log.w("user_login", "Age: " + parseUser.getInt("Age"));
+
 							//save strings to bundle for next activity
 							Bundle b = new Bundle();
 							b.putString("username", parseUser.getString("username"));
@@ -100,7 +105,10 @@ public class LoginActivity extends Activity {
 							intent.putExtras(b);
 
 							startActivity(intent);
-							finish();
+
+							blinkMessage.clearAnimation();
+							blinkMessage.setText("");
+							clicked = false;
 
 						} else {
 
